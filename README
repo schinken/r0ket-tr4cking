@@ -30,8 +30,10 @@ php-curl-proxy in debug/proxy.php:
 
 You need a running webserver with installed php and php5-curl extension
 
-* change the URL in curl_init where you get your json data
+* change the URL in curl_init where you get your json data (debug/proxy.php)
 * change the dataURL to the url "http://your.domain.tld/debug/proxy.php"
+
+If you have php5-apc installed, the proxy caches the request for each second
 
 == Floorplans ==
 
