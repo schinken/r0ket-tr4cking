@@ -23,7 +23,7 @@ function map_range( val, min1, max1, min2, max2 ) {
 function map_canvas( val1, val2 ) {
     return {
         'x': map_range( val1, 0, Config.dataMaxX, 0, Config.canvasMaxX ),
-        'y': map_range( val2, 0, Config.dataMaxY, 0, Config.canvasMaxX )
+        'y': map_range( val2, 0, Config.dataMaxY, 0, Config.canvasMaxY )
     };
 }
 
