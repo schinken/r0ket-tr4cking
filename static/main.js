@@ -1,19 +1,20 @@
-/*
-28C3 - Chaos Communication Congress
-BEHING ENEMY LINES!
 
-author: schinken
-
- */
-
+///////////////////////////////////////////////////////////////////////////
+// Configuration
+///////////////////////////////////////////////////////////////////////////
 
 var Config = {
-    'dataMaxX':         1000,
-    'dataMaxY':         1000,
-    'canvasMaxY':       863,
-    'canvasMaxX':       1000,
-    'updateInterval':   900
-}
+    'dataMaxX':         1000,               // Max X of your data source
+    'dataMaxY':         1000,               // Max Y of your data source
+    'canvasMaxY':       863,                // Max height of your floorplans
+    'canvasMaxX':       1000,               // Max width of your floorplans
+    'updateInterval':   900,
+    'offsetX':          0,
+    'offsetY':          0,
+    'radarRadius':      10,
+    'dataURL':          'http://longcat.de/eh12/debug/proxy.php',
+    'floorFiles':       ['floorplan_1.png']  // floorplans :>
+};
 
 function map_range( val, min1, max1, min2, max2 ) {
     return (val-min1)/(max1-min1) * (max2-min2) + min2;
@@ -26,8 +27,8 @@ function map_canvas( val1, val2 ) {
     };
 }
 
-var offsetX = 60;
-var offsetY = -30;
+var offsetX = Config.offsetX;
+var offsetY = Config.offsetY;
 
 $(function() {
     var objCmd = new CommandCenter;
@@ -53,7 +54,7 @@ $(function() {
         }, 3000 );
 
         // Run ajax with random get parameter to prevent caching from browser
-        $.get('http://longcat.de/ccc/r0ketreplay/replay.php', {'rnd': Math.random() }, function( Data ) {
+        $.get( Config.dataURL , {'rnd': Math.random() }, function( Data ) {
 
             // Remove lock if data is received
             lock = false;
@@ -86,12 +87,11 @@ $(function() {
     var ctx     = $paper[0].getContext('2d');
     // Render loop
 
-    var floorFiles = ['layer_1.png' , 'layer_2.png', 'layer_3.png' ];
     var floorDraw  = {};
 
-    for( var i=0,l=floorFiles.length; i<l; i++ ) {
+    for( var i=0,l=Config.floorFiles.length; i<l; i++ ) {
 
-        var file = 'static/floorplans/'+floorFiles[i];
+        var file = 'static/floorplans/'+Config.floorFiles[i];
         var img  = new Image();
 
         floorDraw[i] = {
@@ -191,7 +191,7 @@ $(function() {
                     map = map_canvas( offsetX+pos.X, offsetY+pos.Y );
 
                 ctx.moveTo( map.x, map.y );
-                ctx.arc( map.x, map.y, 20, radarancle, -Math.PI*2, true);
+                ctx.arc( map.x, map.y, Config.radarRadius, radarancle, -Math.PI*2, true);
             }
 
             ctx.closePath();
