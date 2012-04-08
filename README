@@ -3,6 +3,7 @@
 === First Steps ===
 
 * clone and/or fork git repository git://github.com/Schinken/r0ket-tr4cking.git
+* checkout branch "clean" (git checkout clean)
 * add your new floorplans to the static/floorplans/ directory
 ** change data max X/Y to the maximum values in your json file
 ** change canvas max X/Y for canvas size (size of your floorplan)
