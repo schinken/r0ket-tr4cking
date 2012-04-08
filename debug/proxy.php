@@ -15,13 +15,11 @@ if( function_exists('apc_add') ) {
 
 header('Content-type: application/json');
 
+$cache = sprintf("tracking_%d", time() );
 
 if( $apcExists ) {
-    $cache = microtime(true)*1000;
-    $cache = sprintf("%.1f", round($cache/100*2)/2 );
 
     if(  ( $result = apc_fetch( $cache ) ) !== false ) {
-        trigger_error ( '28c3 cache hit' );
         echo $result;
         exit;
     }
